@@ -1,12 +1,12 @@
-# Python Conda Buildpack
+# Python JupyterLab Buildpack
 
-The `python-conda-buildpack` is a [Cloud Foundry][] buildpack which uses [Continuum's conda][] for package management.
+The `python-jupyterlab-buildpack` is a [Cloud Foundry][] buildpack which uses [Continuum's conda][] for package management.
 
 
 ## Usage
 To use this buildpack specify the URI of the repository when pushing a Python web application to Cloud Foundry.
 
-    cf push -b https://github.com/ihuston/python-conda-buildpack.git
+    cf push -b https://github.com/kdunn-pivotal/python-jupyterlab-buildpack.git
 
 
 ## Python Dependencies
