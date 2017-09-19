@@ -79,19 +79,24 @@ else
         CLING_CACHE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0.tar.bz2"
         $WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
 
+        echo "Installing jupyter"
+        $CONDA_BIN/conda install --yes --quiet jupyter
+
         echo "Unpacking cling"
-        tar xjf ${CLING_CACHE} -C ${CONDA_BIN}/../
+        tar xvjf ${CLING_CACHE} -C ${CONDA_HOME}
 
         echo "Installing Jupyter Cling kernel"
-        ls -lr ${CONDA_BIN}/../share/
-        (cd ${CONDA_BIN}/../share/cling/Jupyter/kernel && ${CONDA_BIN}/pip install -e .)
+        ls -lr ${CONDA_HOME}/share/
+        pushd ${CONDA_HOME}/share/cling/Jupyter/kernel 
 
-        $CONDA_BIN/conda install --yes --quiet jupyter
+        ${CONDA_BIN}/pip install -e .
 
         $CONDA_BIN/jupyter-kernelspec install cling-cpp17
         $CONDA_BIN/jupyter-kernelspec install cling-cpp1z
         $CONDA_BIN/jupyter-kernelspec install cling-cpp14
         $CONDA_BIN/jupyter-kernelspec install cling-cpp11
+
+        popd
 
         $CONDA_BIN/conda install --yes --quite -c conda-forge jupyterlab
 
