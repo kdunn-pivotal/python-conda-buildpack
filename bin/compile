@@ -90,7 +90,7 @@ else
         tar xjf ${CLING_CACHE} -C ${CONDA_HOME}
 
         cd ${CONDA_HOME}
-        rsync -av ${CLING_NAME}/ `pwd`
+        rsync --remove-source-files -a ${CLING_NAME}/ `pwd`
 
         echo "Installing Jupyter Cling kernel"
         ls -lr ${CONDA_HOME}/share/
@@ -105,9 +105,8 @@ else
 
         popd
 
-        $CONDA_BIN/conda install --yes --quite -c conda-forge jupyterlab
+        $CONDA_BIN/conda install --yes --quiet -c conda-forge jupyterlab
 
-        rm -rf ${CONDA_HOME}/${CLING_NAME}/*
     fi
 fi
 $CONDA_BIN/conda clean -pt
