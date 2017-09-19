@@ -98,10 +98,10 @@ else
 
         ${CONDA_BIN}/pip install -e .
 
-        $CONDA_BIN/jupyter-kernelspec install cling-cpp17
-        $CONDA_BIN/jupyter-kernelspec install cling-cpp1z
-        $CONDA_BIN/jupyter-kernelspec install cling-cpp14
-        $CONDA_BIN/jupyter-kernelspec install cling-cpp11
+        $CONDA_BIN/jupyter-kernelspec install --user cling-cpp17
+        $CONDA_BIN/jupyter-kernelspec install --user cling-cpp1z
+        $CONDA_BIN/jupyter-kernelspec install --user cling-cpp14
+        $CONDA_BIN/jupyter-kernelspec install --user cling-cpp11
 
         popd
 
