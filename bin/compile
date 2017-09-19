@@ -74,6 +74,27 @@ else
         echo "-----> Installing pip packages from requirements.txt..."
         $CONDA_BIN/pip install --quiet -r "$BUILD_DIR/requirements.txt"
     fi
+    if [ -e "$BUILD_DIR/*.*nb" ]; then 
+        echo "Fetching cling"
+        CLING_CACHE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0.tar.bz2"
+        $WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
+
+        echo "Unpacking cling"
+        tar xjf ${CLING_CACHE} -C ${CONDA_BIN}/../
+
+        echo "Installing Jupyter Cling kernel"
+        (cd ${CONDA_BIN}/../share/cling/Jupyter/kernel && ${CONDA_BIN}/pip install -e .)
+
+        $CONDA_BIN/conda install --yes --quiet jupyter
+
+        $CONDA_BIN/jupyter-kernelspec install cling-cpp17
+        $CONDA_BIN/jupyter-kernelspec install cling-cpp1z
+        $CONDA_BIN/jupyter-kernelspec install cling-cpp14
+        $CONDA_BIN/jupyter-kernelspec install cling-cpp11
+
+        $CONDA_BIN/conda install --yes --quite -c conda-forge jupyterlab
+
+    fi
 fi
 $CONDA_BIN/conda clean -pt
 
@@ -85,28 +106,5 @@ grep -rlI $BUILD_DIR $BUILD_DIR | xargs sed -i.bak "s|$BUILD_DIR|/home/vcap/app|
 # Add Conda path to profile
 mkdir -p $(dirname $PROFILE_PATH)
 echo "export PATH=$HOME/app/.conda/bin:\$PATH" >> $PROFILE_PATH
-
-
-echo "Fetching cling"
-CLING_CACHE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0.tar.bz2"
-$WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
-
-echo "Unpacking cling"
-tar xjf ${CLING_CACHE} -C ${CONDA_BIN}../
-
-echo "Adding conda, cling to PATH"
-export PATH=${CONDA_BIN}:$PATH
-
-echo "Installing Jupyter Cling kernel"
-(cd /share/cling/Jupyter/kernel && ${CONDA_BIN}/pip install -e .)
-
-$CONDA_BIN/conda install --yes --quiet jupyter
-
-$CONDA_BIN/jupyter-kernelspec install cling-cpp17
-$CONDA_BIN/jupyter-kernelspec install cling-cpp1z
-$CONDA_BIN/jupyter-kernelspec install cling-cpp14
-$CONDA_BIN/jupyter-kernelspec install cling-cpp11
-
-$CONDA_BIN/conda install --yes --quite -c conda-forge jupyterlab
 
 echo "-----> Finished compile step"
