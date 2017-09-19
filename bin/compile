@@ -87,7 +87,7 @@ else
         echo "Unpacking cling"
         tar xjf ${CLING_CACHE} -C ${CONDA_HOME}
 
-        mv ${CONDA_HOME}/${CLING_NAME}/* ${CONDA_HOME}
+        rsync -av ${CONDA_HOME}/${CLING_NAME}/* ${CONDA_HOME}/
 
         echo "Installing Jupyter Cling kernel"
         ls -lr ${CONDA_HOME}/share/
@@ -104,6 +104,7 @@ else
 
         $CONDA_BIN/conda install --yes --quite -c conda-forge jupyterlab
 
+        rm -rf ${CONDA_HOME}/${CLING_NAME}/*
     fi
 fi
 $CONDA_BIN/conda clean -pt
