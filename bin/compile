@@ -92,10 +92,10 @@ CLING_CACHE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0.tar.bz2"
 $WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
 
 echo "Unpacking cling"
-tar xjf ${CLING_CACHE} -C /usr/local
+tar xjf ${CLING_CACHE} -C ${CONDA_BIN}../
 
-echo "Adding cling to PATH"
-export PATH=/usr/local/bin:$PATH
+echo "Adding conda, cling to PATH"
+export PATH=${CONDA_BIN}:$PATH
 
 echo "Installing Jupyter Cling kernel"
 (cd /share/cling/Jupyter/kernel && ${CONDA_BIN}/pip install -e .)
