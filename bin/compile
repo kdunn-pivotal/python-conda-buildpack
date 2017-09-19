@@ -74,7 +74,7 @@ else
         echo "-----> Installing pip packages from requirements.txt..."
         $CONDA_BIN/pip install --quiet -r "$BUILD_DIR/requirements.txt"
     fi
-    if [ -e "$BUILD_DIR/*.*nb" ]; then 
+    if [ -e "$BUILD_DIR/cling" ]; then 
         echo "Fetching cling"
         CLING_CACHE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0.tar.bz2"
         $WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
