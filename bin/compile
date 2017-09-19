@@ -78,8 +78,10 @@ else
         echo "Fetching cling"
         CLING_NAME="cling-Ubuntu-14.04-x86_64-0.5~dev-9f6e4d0"
         CLING_RELEASE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0"
-        CLING_CACHE="$CACHE/${CLING_RELEASE}.tar.bz2"
-        $WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
+        CLING_CACHE="${CLING_RELEASE}.tar.bz2"
+        if [ ! -e $CLING_CACHE ] ; then
+            $WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
+        fi
 
         echo "Installing jupyter"
         $CONDA_BIN/conda install --yes --quiet jupyter
