@@ -83,6 +83,7 @@ else
         tar xjf ${CLING_CACHE} -C ${CONDA_BIN}/../
 
         echo "Installing Jupyter Cling kernel"
+        ls -lr ${CONDA_BIN}/../share/
         (cd ${CONDA_BIN}/../share/cling/Jupyter/kernel && ${CONDA_BIN}/pip install -e .)
 
         $CONDA_BIN/conda install --yes --quiet jupyter
