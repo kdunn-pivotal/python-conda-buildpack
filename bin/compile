@@ -87,7 +87,8 @@ else
         echo "Unpacking cling"
         tar xjf ${CLING_CACHE} -C ${CONDA_HOME}
 
-        rsync -av ${CONDA_HOME}/${CLING_NAME}/* ${CONDA_HOME}/
+        cd ${CONDA_HOME}
+        rsync -av ${CONDA_HOME}/${CLING_NAME}/* `pwd`
 
         echo "Installing Jupyter Cling kernel"
         ls -lr ${CONDA_HOME}/share/
