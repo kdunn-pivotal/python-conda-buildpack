@@ -86,4 +86,24 @@ grep -rlI $BUILD_DIR $BUILD_DIR | xargs sed -i.bak "s|$BUILD_DIR|/home/vcap/app|
 mkdir -p $(dirname $PROFILE_PATH)
 echo "export PATH=$HOME/app/.conda/bin:\$PATH" >> $PROFILE_PATH
 
+
+# Install cling
+$CLING_CACHE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0.tar.bz2"
+$WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
+
+tar xjf ${CLING_CACHE} -C /usr/local
+
+export PATH=/usr/local/bin:$PATH
+
+(cd /share/cling/Jupyter/kernel && ${CONDA_BIN}/pip install -e .)
+
+$CONDA_BIN/conda install --yes --quiet jupyter
+
+$CONDA_BIN/jupyter-kernelspec install cling-cpp17
+$CONDA_BIN/jupyter-kernelspec install cling-cpp1z
+$CONDA_BIN/jupyter-kernelspec install cling-cpp14
+$CONDA_BIN/jupyter-kernelspec install cling-cpp11
+
+$CONDA_BIN/conda install --yes --quite -c conda-forge jupyterlab
+
 echo "-----> Finished compile step"
