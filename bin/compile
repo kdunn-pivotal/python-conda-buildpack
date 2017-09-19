@@ -76,7 +76,8 @@ else
     fi
     if [ -e "$BUILD_DIR/cling" ]; then 
         echo "Fetching cling"
-        CLING_CACHE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0.tar.bz2"
+        CLING_RELEASE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0"
+        CLING_CACHE="${CLING_RELEASE}.tar.bz2"
         $WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
 
         echo "Installing jupyter"
@@ -84,6 +85,8 @@ else
 
         echo "Unpacking cling"
         tar xvjf ${CLING_CACHE} -C ${CONDA_HOME}
+
+        mv ${CONDA_HOME}/${CLING_RELEASE}/* ${CONDA_HOME}
 
         echo "Installing Jupyter Cling kernel"
         ls -lr ${CONDA_HOME}/share/
