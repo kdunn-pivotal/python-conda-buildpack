@@ -78,7 +78,7 @@ else
         echo "Fetching cling"
         CLING_NAME="cling-Ubuntu-14.04-x86_64-0.5~dev-9f6e4d0"
         CLING_RELEASE="2017-Sep-14-cling-Ubuntu-14.04-x86_64-0.5.dev-9f6e4d0"
-        CLING_CACHE="${CLING_RELEASE}.tar.bz2"
+        CLING_CACHE="$CACHE/${CLING_RELEASE}.tar.bz2"
         $WGET -q -O $CLING_CACHE  https://github.com/vgvassilev/cling/releases/download/cling-nightlies/$CLING_CACHE
 
         echo "Installing jupyter"
@@ -88,7 +88,7 @@ else
         tar xjf ${CLING_CACHE} -C ${CONDA_HOME}
 
         cd ${CONDA_HOME}
-        rsync -av ${CONDA_HOME}/${CLING_NAME}/* `pwd`
+        rsync -av ${CLING_NAME}/ `pwd`
 
         echo "Installing Jupyter Cling kernel"
         ls -lr ${CONDA_HOME}/share/
