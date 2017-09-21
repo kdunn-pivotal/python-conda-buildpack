@@ -103,6 +103,11 @@ else
         $CONDA_BIN/jupyter-kernelspec install --user cling-cpp14
         $CONDA_BIN/jupyter-kernelspec install --user cling-cpp11
 
+        $CONDA_BIN/jupyter serverextension enable --py cling-cpp17 --user
+        $CONDA_BIN/jupyter serverextension enable --py cling-cpp1z --user
+        $CONDA_BIN/jupyter serverextension enable --py cling-cpp14 --user
+        $CONDA_BIN/jupyter serverextension enable --py cling-cpp11 --user
+    
         popd
 
         $CONDA_BIN/conda install --yes --quiet -c conda-forge jupyterlab
